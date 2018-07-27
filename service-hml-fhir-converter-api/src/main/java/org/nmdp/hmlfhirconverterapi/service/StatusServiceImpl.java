@@ -24,15 +24,14 @@ package org.nmdp.hmlfhirconverterapi.service;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
-import org.apache.log4j.Logger;
-
 import org.nmdp.hmlfhirconverterapi.config.ApplicationProperties;
 import org.nmdp.hmlfhirconverterapi.dao.StatusRepository;
 import org.nmdp.hmlfhirconverterapi.dao.custom.StatusCustomRepository;
 import org.nmdp.hmlfhirmongo.config.MongoConfiguration;
 import org.nmdp.hmlfhirmongo.models.Status;
 import org.nmdp.hmlfhirmongo.mongo.MongoConversionStatusDatabase;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -50,7 +49,7 @@ import java.util.List;
 @Service
 public class StatusServiceImpl extends BaseService implements StatusService {
 
-    private static final Logger LOG = Logger.getLogger(StatusServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StatusServiceImpl.class);
     private static final MongoConversionStatusDatabase database = getDatabase();
 
     private final StatusCustomRepository customRepository;
@@ -106,7 +105,8 @@ public class StatusServiceImpl extends BaseService implements StatusService {
                 mc = yaml.loadAs(is, MongoConfiguration.class);
             }
         } catch(IOException ex) {
-            LOG.error(ex);
+            //TODO Better error handling
+            LOG.error("Error: ", ex);
         } finally {
             return new MongoConversionStatusDatabase(mc);
         }

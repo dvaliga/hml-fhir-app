@@ -24,8 +24,6 @@ package org.nmdp.hmlfhirconverterapi.service;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
-import org.apache.log4j.Logger;
-
 import org.nmdp.hmlfhir.ConvertHmlToFhir;
 import org.nmdp.hmlfhir.ConvertHmlToFhirImpl;
 import org.nmdp.hmlfhir.deserialization.HmlXmlDeserializerHyphenatedProperties;
@@ -36,7 +34,8 @@ import org.nmdp.hmlfhirconverterapi.util.Serializer;
 import org.nmdp.hmlfhirconvertermodels.dto.hml.Hml;
 import org.nmdp.hmlfhirmongo.config.MongoConfiguration;
 import org.nmdp.hmlfhirmongo.mongo.MongoHmlDatabase;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -56,7 +55,7 @@ import java.util.Map;
 @Service
 public class HmlServiceImpl extends MongoServiceBase implements HmlService {
 
-    private final static Logger LOG = Logger.getLogger(HmlServiceImpl.class);
+    private final static Logger LOG = LoggerFactory.getLogger(HmlServiceImpl.class);
     private final HmlCustomRepository customRepository;
     private final HmlRepository repository;
     private final MongoHmlDatabase hmlDatabase;
@@ -78,7 +77,8 @@ public class HmlServiceImpl extends MongoServiceBase implements HmlService {
                 mc = yaml.loadAs(is, MongoConfiguration.class);
             }
         } catch (IOException ex) {
-            LOG.error(ex);
+            //TODO Better error handling
+            LOG.error("Error: ", ex);
         } finally {
             this.hmlDatabase = new MongoHmlDatabase(mc);
         }
@@ -130,7 +130,8 @@ public class HmlServiceImpl extends MongoServiceBase implements HmlService {
         try {
             return Serializer.toJson(getHmlFromMongo(id));
         } catch (Exception ex) {
-            LOG.error(ex);
+            //TODO Better error handling
+            LOG.error("Error: ", ex);
             return null;
         }
     }
@@ -140,7 +141,8 @@ public class HmlServiceImpl extends MongoServiceBase implements HmlService {
         try {
             return Serializer.toXml(getHmlFromMongo(id));
         } catch (Exception ex) {
-            LOG.error(ex);
+            //TODO Better error handling
+            LOG.error("Error: ", ex);
             return null;
         }
     }

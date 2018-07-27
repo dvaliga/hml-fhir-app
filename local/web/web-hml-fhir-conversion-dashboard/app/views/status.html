@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <div class="panel-title">Upload to converter</div>
+      </div>
+      <div class="panel-body">
+        <div class="col-xs-12">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <div class="panel-title">HML <i class="glyphicon glyphicon-arrow-right" /> FHIR</div>
+            </div>
+            <div class="panel-body">
+              <input type="file" multi-part-file-upload="statusCtrl.hmlFile" name="file" />
+            </div>
+            <div class="panel-footer">
+              <div class="row">
+                <div class="col-xs-12">
+                  <button data-ng-disabled="!statusCtrl.hmlFile" type="button" data-ng-click="statusCtrl.convertHml()" class="btn btn-primary">Upload</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <div class="panel-title">Conversion Status</div>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="row" data-ng-repeat="status in statusCtrl.statuses">
+              <div class="col-xs-12">
+                <div class="panel panel-primary">
+                  <div class="panel-heading">
+                    <div class="panel-title">Conversion Result</div>
+                  </div>
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <label for="submission" class="label control-label">Status:</label>
+                        <h5 id="submission">{{ status.hmlId ? 'Completed' : 'Processing' }}</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel-footer">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <button type="button" class="btn btn-success" data-ng-click="statusCtrl.downloadHmlXml(status)"><span class="glyphicon glyphicon-download button-glyphicon" />Download HML</button>
+                        <button type="button" class="btn btn-success" data-ng-click="statusCtrl.getSubmissionById(status.fhirSubmissionId)"><span class="glyphicon glyphicon-download button-glyphicon" />Download FHIR</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="button" class="btn btn-primary pull-right" data-ng-click="statusCtrl.refresh()">Refresh</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -27,8 +27,6 @@ package org.nmdp.hmlfhirconverterapi.controller;
 
 import io.swagger.api.fhir.FhirApi;
 
-import org.apache.log4j.Logger;
-
 import org.nmdp.hmlfhirconverterapi.config.KafkaConfig;
 import org.nmdp.hmlfhirconverterapi.service.FhirService;
 import org.nmdp.hmlfhirconverterapi.util.FileConverter;
@@ -37,6 +35,8 @@ import org.nmdp.kafkaproducer.kafka.KafkaProducerService;
 
 import org.nmdp.kafkaproducer.util.ConvertToKafkaMessage;
 import org.nmdp.servicekafkaproducermodel.models.KafkaMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -54,7 +54,7 @@ import java.util.concurrent.Callable;
 @CrossOrigin
 public class FhirController implements FhirApi {
 
-    private static final Logger LOG = Logger.getLogger(FhirController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FhirController.class);
     private final FhirService fhirService;
     private final KafkaProducerService kafkaProducerService;
     private final KafkaConfig kafkaConfig;

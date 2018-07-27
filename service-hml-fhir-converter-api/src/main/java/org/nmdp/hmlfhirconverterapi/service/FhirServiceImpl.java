@@ -24,8 +24,6 @@ package org.nmdp.hmlfhirconverterapi.service;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
-import org.apache.log4j.Logger;
-
 import org.bson.Document;
 import org.nmdp.hmlfhir.ConvertFhirToHml;
 import org.nmdp.hmlfhir.ConvertFhirToHmlImpl;
@@ -36,7 +34,8 @@ import org.nmdp.hmlfhirconverterapi.util.Serializer;
 import org.nmdp.hmlfhirconvertermodels.dto.fhir.FhirMessage;
 import org.nmdp.hmlfhirmongo.config.MongoConfiguration;
 import org.nmdp.hmlfhirmongo.mongo.MongoFhirDatabase;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -54,7 +53,7 @@ import java.util.Map;
 public class FhirServiceImpl extends MongoServiceBase implements FhirService {
 
     private final Yaml yaml;
-    private static final Logger LOG = Logger.getLogger(FhirServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FhirServiceImpl.class);
     private final FhirCustomRepository customRepository;
     private final FhirRepository repository;
     private final MongoFhirDatabase fhirDatabase;
@@ -75,7 +74,8 @@ public class FhirServiceImpl extends MongoServiceBase implements FhirService {
                 mc = yaml.loadAs(is, MongoConfiguration.class);
             }
         } catch (IOException ex) {
-            LOG.error(ex);
+            //TODO Better error handling
+            LOG.error("Error: ", ex);
         } finally {
             this.fhirDatabase = new MongoFhirDatabase(mc);
         }
@@ -125,7 +125,8 @@ public class FhirServiceImpl extends MongoServiceBase implements FhirService {
         try {
             return Serializer.toJson(getFhirFromMongo(id), id);
         } catch (Exception ex) {
-            LOG.error(ex);
+            //TODO Better error handling
+            LOG.error("Error: ", ex);
             return null;
         }
     }
@@ -135,7 +136,8 @@ public class FhirServiceImpl extends MongoServiceBase implements FhirService {
         try {
             return Serializer.toXml(getFhirFromMongo(id));
         } catch (Exception ex) {
-            LOG.error(ex);
+            //TODO Better error handling
+            LOG.error("Error: ", ex);
             return null;
         }
     }

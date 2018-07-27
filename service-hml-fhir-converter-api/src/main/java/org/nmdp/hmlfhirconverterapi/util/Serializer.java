@@ -33,8 +33,9 @@ import de.odysseus.staxon.json.JsonXMLConfig;
 import de.odysseus.staxon.json.JsonXMLConfigBuilder;
 import de.odysseus.staxon.json.JsonXMLInputFactory;
 import de.odysseus.staxon.xml.util.PrettyXMLEventWriter;
-import org.apache.log4j.Logger;
 import org.bson.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLEventWriter;
@@ -45,7 +46,7 @@ import java.io.StringWriter;
 
 public class Serializer {
 
-    private static final Logger LOG = Logger.getLogger(Serializer.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Serializer.class);
 
     public static <T> String toJson(T object) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -74,7 +75,8 @@ public class Serializer {
 
             return stringWriter.getBuffer().toString();
         } catch (Exception ex) {
-            LOG.error(ex);
+            //TODO Better error handling
+            LOG.error("Error: ", ex);
             return null;
         }
     }

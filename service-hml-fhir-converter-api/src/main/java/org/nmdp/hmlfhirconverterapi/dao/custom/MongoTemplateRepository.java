@@ -1,5 +1,8 @@
 package org.nmdp.hmlfhirconverterapi.dao.custom;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Created by Andrew S. Brown, Ph.D., <andrew@nmdp.org>, on 5/26/17.
  * <p>
@@ -24,8 +27,6 @@ package org.nmdp.hmlfhirconverterapi.dao.custom;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
-import org.apache.log4j.Logger;
-
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
 
@@ -36,7 +37,7 @@ public abstract class MongoTemplateRepository<T> {
     private final Class<T> tClass;
     private final MongoOperations mongoOperations;
 
-    private static final Logger LOG = Logger.getLogger(MongoTemplateRepository.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MongoTemplateRepository.class);
 
     public MongoTemplateRepository(Class<T> tClass, MongoOperations mongoOperations) {
         this.tClass = tClass;

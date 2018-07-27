@@ -28,7 +28,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import org.apache.log4j.Logger;
 
 import org.bson.Document;
 import org.json.JSONArray;
@@ -44,6 +43,8 @@ import org.nmdp.hmlfhirmongo.models.Status;
 import org.nmdp.kafkaproducer.kafka.KafkaProducerService;
 import org.nmdp.kafkaproducer.util.ConvertToKafkaMessage;
 import org.nmdp.servicekafkaproducermodel.models.KafkaMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -63,7 +64,7 @@ import java.util.concurrent.Callable;
 @CrossOrigin
 public class SubmissionController {
 
-    private static final Logger LOG = Logger.getLogger(SubmissionController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SubmissionController.class);
     private final SubmissionService submissionService;
     private final KafkaProducerService kafkaProducerService;
     private final FhirService fhirService;

@@ -29,11 +29,11 @@ import org.bson.Document;
 import org.nmdp.hmlfhirconverterapi.config.ApplicationProperties;
 import org.yaml.snakeyaml.Yaml;
 
-import org.apache.log4j.Logger;
-
 import org.nmdp.hmlfhirconverterapi.dao.FhirSubmissionRepository;
 import org.nmdp.hmlfhirconverterapi.dao.custom.FhirSubmissionCustomRepository;
 import org.nmdp.hmlfhirmongo.mongo.MongoFhirSubmissionDatabase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -46,7 +46,7 @@ import java.net.URL;
 public class SubmissionServiceImpl extends BaseService implements SubmissionService {
 
     private final Yaml yaml;
-    private static final Logger LOG = Logger.getLogger(SubmissionServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SubmissionServiceImpl.class);
     private final FhirSubmissionCustomRepository customRepository;
     private final FhirSubmissionRepository repository;
     private final MongoFhirSubmissionDatabase database;

@@ -24,12 +24,11 @@ package org.nmdp.hmlfhirconverterapi.controller;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
-import org.apache.log4j.Logger;
-
 import org.bson.Document;
 
 import org.nmdp.hmlfhirconverterapi.service.StatusService;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,7 +43,7 @@ import java.util.concurrent.Callable;
 @CrossOrigin
 public class StatusController {
 
-    private static final Logger LOG = Logger.getLogger(StatusController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StatusController.class);
     private final StatusService statusService;
 
     @Autowired

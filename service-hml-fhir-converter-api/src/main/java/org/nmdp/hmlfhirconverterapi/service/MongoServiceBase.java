@@ -1,12 +1,13 @@
 package org.nmdp.hmlfhirconverterapi.service;
 
-import org.apache.log4j.Logger;
 import org.nmdp.hmlfhirconverterapi.config.ApplicationProperties;
 import org.nmdp.hmlfhirconvertermodels.dto.fhir.FhirMessage;
 import org.nmdp.hmlfhirmongo.config.MongoConfiguration;
 import org.nmdp.hmlfhirmongo.models.ConversionStatus;
 import org.nmdp.hmlfhirmongo.models.Status;
 import org.nmdp.hmlfhirmongo.mongo.MongoConversionStatusDatabase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -44,7 +45,7 @@ public abstract class MongoServiceBase {
 
     protected final MongoConversionStatusDatabase statusDatabase;
     private final Yaml yaml;
-    private final static Logger LOG = Logger.getLogger(MongoServiceBase.class);
+    private final static Logger LOG = LoggerFactory.getLogger(MongoServiceBase.class);
 
     public MongoServiceBase() {
         this.yaml = new Yaml();
@@ -87,7 +88,8 @@ public abstract class MongoServiceBase {
 
             return new MongoConversionStatusDatabase(config);
         } catch (Exception ex) {
-            LOG.error(ex);
+            //TODO Better error handling
+            LOG.error("Error: ", ex);
             return new MongoConversionStatusDatabase(null);
         }
     }

@@ -1,5 +1,7 @@
 package org.nmdp.hmlfhirconverterapi.config;
 
+import org.slf4j.Logger;
+
 /**
  * Created by Andrew S. Brown, Ph.D., <andrew@nmdp.org>, on 6/22/17.
  * <p>
@@ -24,7 +26,7 @@ package org.nmdp.hmlfhirconverterapi.config;
  * > http://www.opensource.org/licenses/lgpl-license.php
  */
 
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -33,7 +35,8 @@ import java.net.URL;
 
 public class KafkaConfig {
 
-    private static final Logger LOG = Logger.getLogger(KafkaConfig.class);
+    //private static final Logger LOG = Logger.getLogger(KafkaConfig.class);
+    private static final Logger LOG = LoggerFactory.getLogger(KafkaConfig.class);
 
     private String messageKey;
     private String key;
@@ -93,7 +96,8 @@ public class KafkaConfig {
                 config = yaml.loadAs(is, KafkaConfig.class);
             }
         } catch (Exception ex) {
-            LOG.error(ex);
+            //TODO Better error handling
+            LOG.error("Error: ", ex);
         } finally {
             return config;
         }
